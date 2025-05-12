@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress
+data:
+  9000: "mq-demo/secureapphelm-ibm-mq:1414"

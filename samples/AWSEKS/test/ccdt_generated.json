@@ -1,0 +1,25 @@
+{
+    "channel":
+    [
+        {
+            "name": "MTLSQMCHL",
+            "clientConnection":
+            {
+                "connection":
+                [
+                    {
+                        "host": "ad4588a6b083e4123a5cacf845f3333b-1847866053.us-east-1.elb.amazonaws.com",
+                        "port": 1414
+                    }
+                ],
+                "queueManager": "secureapphelm"
+            },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER",
+              "certificateLabel": "aceclient"
+            },
+            "type": "clientConnection"
+        }
+   ]
+}
