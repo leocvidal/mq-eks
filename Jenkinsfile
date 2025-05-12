@@ -2,6 +2,7 @@ pipeline {
     agent {
     docker {
       image 'bitnami/kubectl:latest' // has kubectl pre-installed
+            }
     }
     environment {
         IBM_ENTITLEMENT_KEY = credentials('ibm_entitlement_key')
