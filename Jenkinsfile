@@ -34,7 +34,8 @@ pipeline {
                 tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
                 mv linux-amd64/helm ./helm
                 chmod +x ./helm
-                ./helm version
+                mv helm /tmp/helm
+                /tmp/helm version
             '''
         }
       }
