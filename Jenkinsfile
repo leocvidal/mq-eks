@@ -32,9 +32,8 @@ pipeline {
                 HELM_VERSION="v3.14.4"
                 curl -LO https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz
                 tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
-                mv linux-amd64/helm ./helm
-                chmod +x ./helm
-                mv helm /tmp/helm
+                mv linux-amd64/helm /tmp/helm
+                chmod +x /tmp/helm
                 /tmp/helm version
             '''
         }
