@@ -26,14 +26,17 @@ if [ $# -eq 4 ]
     LB_ANNOTATION="--set-string route.loadBalancer.annotations.service\.beta\.kubernetes\.io/aws-load-balancer-internal=${4}"
 fi
 
-export QM_KEY=$(cat samples/genericresources/createcerts/server.key | base64 | tr -d '\n')
-export QM_CERT=$(cat samples/genericresources/createcerts/server.crt | base64 | tr -d '\n')
-export APP_CERT=$(cat samples/genericresources/createcerts/application.crt | base64 | tr -d '\n')
-
 cd samples/AWSEKS/deploy
+echo "Current directory: $(pwd)" 
+
+export QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
+export QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
+export APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
+
+
 ( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 /tmp/kubectl apply -f mtlsqm.yaml
 
-/tmp/helm install secureapphelm charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
+/tmp/helm install secureapphelm ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
