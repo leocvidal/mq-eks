@@ -29,6 +29,8 @@ fi
 cd samples/AWSEKS/deploy
 echo "Current directory: $(pwd)" 
 
+/tmp/kubectl get namespaces
+
 export QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
 export QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
 export APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')

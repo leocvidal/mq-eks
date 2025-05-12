@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export TARGET_NAMESPACE=ibm-mq-ns
+export TARGET_NAMESPACE=default
 
 helm delete secureapphelm -n $TARGET_NAMESPACE
 kubectl delete secret helmsecure -n $TARGET_NAMESPACE
