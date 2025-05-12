@@ -27,7 +27,7 @@ pipeline {
         stage('Pre Deploy') {
             steps {
                 echo 'Pre-Deploy ~ setup configuration before deploy '
-                sh '/var/jenkins_home/bin/kubectl get pods'
+                sh '/tmp/kubectl get pods'
             }
         }
         stage('Deploy') {
