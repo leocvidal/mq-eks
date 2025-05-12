@@ -3,7 +3,7 @@ pipeline {
     environment {
         IBM_ENTITLEMENT_KEY = credentials('ibm_entitlement_key')
         RELEASE_NAME        = "qm1"        
-        NAMESPACE           = "mq1"
+        NAMESPACE           = "ibm-mq-n"
         STORAGE_CLASS       = "ocs-storagecluster-ceph-rbd"
         QMGR_NAME           = "QM1"
         CHANNEL_NAME        = "QM1CHL"
@@ -41,13 +41,13 @@ pipeline {
         stage('Pre Deploy') {
             steps {
                 echo 'Pre-Deploy ~ setup configuration before deploy '
-                sh '/tmp/kubectl get pods'
+                
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                
+                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}')
             }
         }
     }
