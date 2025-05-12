@@ -16,12 +16,24 @@ pipeline {
     stages {
       stage('Download kubectl') {
           steps {
+            echo 'Donwload kubectl '
             sh '''
               curl -LO "https://dl.k8s.io/release/v1.33.0/bin/linux/amd64/kubectl"
               chmod +x kubectl
               mv kubectl /tmp/kubectl
             '''
           }
+        }
+
+      stage('Install Helm') {
+        steps {
+            echo 'Install helm '
+            sh '''
+            curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+            chmod 700 get_helm.sh
+            ./get_helm.sh
+            helm version
+            '''
         }
         
         stage('Pre Deploy') {
