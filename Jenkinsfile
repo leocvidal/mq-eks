@@ -23,7 +23,7 @@ pipeline {
               mv kubectl /tmp/kubectl
             '''
           }
-        }
+      }
 
       stage('Install Helm') {
         steps {
@@ -35,7 +35,7 @@ pipeline {
             helm version
             '''
         }
-        
+      }
         stage('Pre Deploy') {
             steps {
                 echo 'Pre-Deploy ~ setup configuration before deploy '
