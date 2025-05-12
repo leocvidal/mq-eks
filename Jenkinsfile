@@ -14,6 +14,16 @@ pipeline {
         AVAILABILITY        = "NativeHA"
     }
     stages {
+      stage('Download kubectl') {
+          steps {
+            sh '''
+              curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+              chmod +x kubectl
+              mv kubectl /tmp/kubectl
+            '''
+          }
+        }
+        
         stage('Pre Deploy') {
             steps {
                 echo 'Pre-Deploy ~ setup configuration before deploy '
