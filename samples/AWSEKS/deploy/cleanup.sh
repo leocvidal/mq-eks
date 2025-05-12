@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export TARGET_NAMESPACE=default
+export TARGET_NAMESPACE=ibm-mq-ns
 
-helm delete secureapphelm
+helm delete secureapphelm -n $TARGET_NAMESPACE
 kubectl delete secret helmsecure -n $TARGET_NAMESPACE
 kubectl delete configmap helmsecure -n $TARGET_NAMESPACE
 kubectl delete pvc data-secureapphelm-ibm-mq-0 -n $TARGET_NAMESPACE
