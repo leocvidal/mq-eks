@@ -1,9 +1,19 @@
 pipeline {
-    agent {
-    docker {
-      image 'bitnami/kubectl:latest' // has kubectl pre-installed
-            }
-    }
+      agent {
+        kubernetes {
+          yaml """
+    apiVersion: v1
+    kind: Pod
+    spec:
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl:latest
+        command:
+        - cat
+        tty: true
+    """
+        }
+      }
     environment {
         IBM_ENTITLEMENT_KEY = credentials('ibm_entitlement_key')
         RELEASE_NAME        = "qm1"        
