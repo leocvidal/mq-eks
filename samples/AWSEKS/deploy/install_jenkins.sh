@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export TARGET_NAMESPACE=${1:-"default"}
+
+TARGET_NAMESPACE=${1:-default}
+
 if [ $# -gt 2 ]
   then
     MQ_ADMIN_PASSWORD_NAME="--set queueManager.envVariables[0].name=MQ_ADMIN_PASSWORD"
