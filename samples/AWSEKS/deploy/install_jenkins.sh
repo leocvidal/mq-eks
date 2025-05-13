@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-TARGET_NAMESPACE=${1:-default}
+echo $1
+export TARGET_NAMESPACE=${1:-default}
 
 if [ $# -gt 2 ]
   then
