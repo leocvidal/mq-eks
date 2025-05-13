@@ -47,7 +47,7 @@ pipeline {
                 echo 'Install helm '
                 sh '''
                     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                    unzip -0 awscliv2.zip
+                    unzip -o awscliv2.zip
                     ./aws/install --update
                     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
