@@ -40,6 +40,7 @@ pipeline {
                     /tmp/helm version
                 '''
             }
+        }
 
         stage('Install aws cli') {
             steps {
@@ -54,7 +55,8 @@ pipeline {
                     /tmp/kubectl get pods
                 '''
             }    
-      }
+        }
+        
         stage('Pre Deploy') {
             steps {
                 echo 'Pre-Deploy ~ setup configuration before deploy '
