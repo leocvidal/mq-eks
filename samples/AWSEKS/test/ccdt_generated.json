@@ -8,7 +8,7 @@
                 "connection":
                 [
                     {
-                        "host": "a711254ef1f504c5ca6a2efab897394e-1734383712.us-east-1.elb.amazonaws.com",
+                        "host": "ac149ff20e97843eaac04ba8862dca45-649372206.us-east-1.elb.amazonaws.com",
                         "port": 1414
                     }
                 ],
