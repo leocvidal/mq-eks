@@ -52,7 +52,7 @@ pipeline {
                 echo 'Deploy ~ deploy queue manager'
                 sh '''
                 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
+                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
                 /tmp/awscli/v2/2.27.14/bin/aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
                 '''
                 // sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}') //
