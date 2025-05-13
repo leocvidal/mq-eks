@@ -50,7 +50,7 @@ pipeline {
                     unzip -o awscliv2.zip
                     ./aws/install --bin-dir $HOME/.local/bin --install-dir $HOME/.local/aws-cli --update
                     echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
-                    source ~/.bashrc
+                    . ~/.bashrc
                     aws --version
                     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
