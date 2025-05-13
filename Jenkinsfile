@@ -40,6 +40,20 @@ pipeline {
                     /tmp/helm version
                 '''
             }
+
+        stage('Install aws cli') {
+            steps {
+                echo 'Install helm '
+                sh '''
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install
+                    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                    aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
+                    /tmp/kubectl get pods
+                '''
+            }    
       }
         stage('Pre Deploy') {
             steps {
@@ -51,10 +65,7 @@ pipeline {
             steps {
                 echo 'Deploy ~ deploy queue manager'
                 sh '''
-                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                /tmp/awscli/v2/2.27.14/bin/aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
-                /tmp/kubectl get pods
+
                 '''
                 // sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}') //
             }
