@@ -28,6 +28,7 @@ fi
 
 cd samples/AWSEKS/deploy
 echo "Current directory: $(pwd)" 
+echo "Current namespace: $(TARGET_NAMESPACE)" 
 
 /tmp/kubectl get namespaces
 

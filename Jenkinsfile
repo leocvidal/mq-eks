@@ -44,14 +44,13 @@ pipeline {
 
         stage('Install aws cli') {
             steps {
-                echo 'Install helm '
+                echo 'Install aws cli '
                 sh '''
                     curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
                     unzip -o awscliv2.zip
                     ./aws/install --bin-dir $HOME/.local/bin --install-dir $HOME/.local/aws-cli --update
                     echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
                     . ~/.bashrc
-                    aws --version
                     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
                     aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
@@ -70,9 +69,9 @@ pipeline {
             steps {
                 echo 'Deploy ~ deploy queue manager'
                 sh '''
-
+                ./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}
                 '''
-                // sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}') //
+                //sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}')//
             }
         }
     }

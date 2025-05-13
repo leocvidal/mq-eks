@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export TARGET_NAMESPACE=default
+export TARGET_NAMESPACE=${1:-"default"}
 
 helm delete secureapphelm -n $TARGET_NAMESPACE
 kubectl delete secret helmsecure -n $TARGET_NAMESPACE
