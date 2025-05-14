@@ -14,6 +14,7 @@ pipeline {
         USE                   = "NonProduction"
         VERSION               = "9.4.0.5-r2"
         AVAILABILITY          = "NativeHA"
+        PATH = "${HOME}/.local/bin:${PATH}"
     }
     stages {
         stage('Download kubectl') {
