@@ -39,9 +39,9 @@ echo "running /tmp/kubectl config set-context:"
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 /tmp/kubectl get pods
 
-export QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
-export QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
-export $APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
+QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
+QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
+$APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
 echo "A QM Key e: $QM_KEY"
 echo "A QM Cert e: $QM_CERT"
 echo "A App Cert e: $APP_CERT"
