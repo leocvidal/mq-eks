@@ -38,11 +38,10 @@ QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n
 APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
 echo "QM_KEY is: $QM_KEY" 
 
-
-( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
+envsubst < mtlsqm.yaml_template > mtlsqm.yaml
+#( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
-echo "cating mtlsqm.yaml..." 
 cat mtlsqm.yaml
 /tmp/kubectl apply -f mtlsqm.yaml
 
