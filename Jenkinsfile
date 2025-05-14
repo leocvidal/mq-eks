@@ -68,30 +68,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                sh '''
-                if [ $# -gt 2 ]
-                then
-                    MQ_ADMIN_PASSWORD_NAME="--set queueManager.envVariables[0].name=MQ_ADMIN_PASSWORD"
-                    MQ_ADMIN_PASSWORD_VALUE="--set queueManager.envVariables[0].value=${2}"
-                    MQ_APP_PASSWORD_NAME="--set queueManager.envVariables[1].name=MQ_APP_PASSWORD"
-                    MQ_APP_PASSWORD_VALUE="--set queueManager.envVariables[1].value=${3}"
-                fi
-                if [ $# -eq 4 ]
-                then
-                    LB_ANNOTATION="--set-string route.loadBalancer.annotations.service\.beta\.kubernetes\.io/aws-load-balancer-internal=${4}"
-                fi
+                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${RELEASE_NAME} ${AVAILABILITY}')
 
-
-                echo "Current namespace: ${TARGET_}NAMESPACE}" 
-
-                aws help 
-                /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
-
-                export QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
-                export QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
-                export APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
-                '''
-                //sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE}')//
             }
         }
     }
