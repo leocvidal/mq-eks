@@ -47,6 +47,7 @@ pipeline {
             steps {
                 echo 'Install aws cli '
                 sh '''
+                    set +x
                     curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
                     unzip -o -q awscliv2.zip
                     ./aws/install --bin-dir $HOME/.local/bin --install-dir $HOME/.local/aws-cli --update
