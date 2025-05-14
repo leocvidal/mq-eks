@@ -39,7 +39,7 @@ APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr 
 
 
 #envsubst < mtlsqm.yaml_template > mtlsqm.yaml
-//( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
+#( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
 eval "cat <<EOF
 $(<mtlsqm.yaml_template)
 EOF
