@@ -17,7 +17,7 @@ release_name=${1:-default}
 
 echo $release_name
 TARGET_NAMESPACE=${1:-default}
-echo $TARGET_NAMESPACE
+
 
 if [ $# -gt 2 ]
   then
@@ -33,7 +33,7 @@ fi
 
 cd samples/AWSEKS/deploy
 echo "Current directory: $(pwd)" 
-echo "Current namespace: $(TARGET_NAMESPACE)" 
+echo "Current namespace: $TARGET_NAMESPACE" 
 
 /tmp/kubectl get namespaces
 
