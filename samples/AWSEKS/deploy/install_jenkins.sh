@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+release_name=${1:-default}
 echo $1
+echo $release_name
 export TARGET_NAMESPACE=${1:-default}
 
 if [ $# -gt 2 ]
