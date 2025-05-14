@@ -38,7 +38,6 @@ pipeline {
                     tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
                     mv linux-amd64/helm /tmp/helm
                     chmod +x /tmp/helm
-                    /tmp/helm version
                 '''
             }
         }
@@ -56,7 +55,6 @@ pipeline {
                     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
                     aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
-                    /tmp/kubectl get pods
                 '''
             }    
         }
@@ -70,8 +68,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${RELEASE_NAME} ${AVAILABILITY}')
-                //   //
+                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${RELEASE_NAME} ${AVAILABILITY}')
+        
             }
         }
     }
