@@ -41,8 +41,10 @@ echo "running /tmp/kubectl config set-context:"
 
 export QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
 export QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
-export APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
-
+export $APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
+echo $QM_KEY
+echo $QM_CERT
+echo $APP_CERT
 
 ( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
 
