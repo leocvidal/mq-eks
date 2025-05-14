@@ -36,10 +36,14 @@ aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
 QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
 QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
 APP_CERT=$(cat ../../genericresources/createcerts/application.crt | base64 | tr -d '\n')
-echo "QM_KEY is: $QM_KEY" 
 
-envsubst < mtlsqm.yaml_template > mtlsqm.yaml
-#( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
+
+#envsubst < mtlsqm.yaml_template > mtlsqm.yaml
+//( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
+eval "cat <<EOF
+$(<mtlsqm.yaml_template)
+EOF
+" > mtlsqm.yaml
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 cat mtlsqm.yaml
