@@ -105,7 +105,9 @@ queueManager:
   # Allows QM INI snippets to be loaded from secrets. These will be loaded into the running instance
   qminiSecrets: []
   # Enviroment variables to be associated with the queue manager containers
-  envVariables: []
+  envVariables: 
+      - name: MQ_ADMIN_PASSWORD_NAME
+        value: admin
   # The duration in seconds the Queue Manager needs to terminate gracefully, difference in time between SIGTERM and SIGKILL
   terminationGracePeriodSeconds: 30
   # The stateful set updateStrategy policy
