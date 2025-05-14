@@ -14,9 +14,10 @@
 # limitations under the License.
 
 release_name=${1:-default}
-echo $1
+
 echo $release_name
-export TARGET_NAMESPACE=${1:-default}
+TARGET_NAMESPACE=${1:-default}
+echo $TARGET_NAMESPACE
 
 if [ $# -gt 2 ]
   then
