@@ -71,7 +71,7 @@ pipeline {
             steps {
                 echo 'Deploy ~ deploy queue manager'
                 sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${RELEASE_NAME} ${AVAILABILITY}')
-
+                //   //
             }
         }
     }
