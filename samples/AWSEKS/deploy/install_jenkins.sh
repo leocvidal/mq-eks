@@ -36,8 +36,7 @@ echo "running aws eks .."
 aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
 
 echo "running /tmp/kubectl config set-context:"
-/tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
-/tmp/kubectl get pods
+
 
 QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
 QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
@@ -48,7 +47,7 @@ echo "A App Cert e: $APP_CERT"
 
 ( echo "cat <<EOF" ; cat mtlsqm.yaml_template ; echo EOF ) | sh > mtlsqm.yaml
 
-#/tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
-#/tmp/kubectl apply -f mtlsqm.yaml
+/tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
+/tmp/kubectl apply -f mtlsqm.yaml
 
 # /tmp/helm install secureapphelm ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
