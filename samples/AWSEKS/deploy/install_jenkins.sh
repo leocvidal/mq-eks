@@ -13,9 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-release_name=${1:-default}
 
-echo $release_name
 TARGET_NAMESPACE=${1:-default}
 
 
