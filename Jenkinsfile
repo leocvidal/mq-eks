@@ -68,7 +68,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${RELEASE_NAME} ${AVAILABILITY} ${VERSION}')
+                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${RELEASE_NAME} ${AVAILABILITY} ${VERSION} ${QMGR_NAME}')
         
             }
         }
