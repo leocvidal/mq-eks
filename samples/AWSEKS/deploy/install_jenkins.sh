@@ -30,13 +30,14 @@ if [ $# -eq 4 ]
 fi
 
 cd samples/AWSEKS/deploy
-echo "Current directory: $(pwd)" 
-echo "Current namespace: $TARGET_NAMESPACE" 
+echo "running aws eks .." 
 #export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 #export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
-aws help 
+
+echo "running /tmp/kubectl config set-context:"
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
+/tmp/kubectl get pods
 
 export QM_KEY=$(cat ../../genericresources/createcerts/server.key | base64 | tr -d '\n')
 export QM_CERT=$(cat ../../genericresources/createcerts/server.crt | base64 | tr -d '\n')
