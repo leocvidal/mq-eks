@@ -15,16 +15,10 @@
 
 TARGET_NAMESPACE=${1:-default}
 
-echo "All parameters received:"
-for arg in "$@"; do
-  echo "$arg"
-done
-
 if [ $# -gt 2 ]
   then
     MQ_ADMIN_PASSWORD_NAME="--set queueManager.envVariables[0].name=MQ_ADMIN_PASSWORD"
     MQ_ADMIN_PASSWORD_VALUE="--set queueManager.envVariables[0].value=${2}"
-    echo $MQ_ADMIN_PASSWORD_VALUE
     MQ_APP_PASSWORD_NAME="--set queueManager.envVariables[1].name=MQ_APP_PASSWORD"
     MQ_APP_PASSWORD_VALUE="--set queueManager.envVariables[1].value=${3}"
 fi

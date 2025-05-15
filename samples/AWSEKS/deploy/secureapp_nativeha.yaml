@@ -57,5 +57,5 @@ route:
     webconsole: true
     mqtraffic: true
   loadBalancer:
-    webconsole: true
-    mqtraffic: true
+    webconsole: false
+    mqtraffic: false
