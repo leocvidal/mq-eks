@@ -39,7 +39,7 @@ $(<mtlsqm.yaml_template)
 EOF
 " > mtlsqm.yaml
 
-echo ("MQ conf is:") 
+echo "MQ conf is..."
 cat mtlsqm.yaml
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
