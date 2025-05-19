@@ -39,9 +39,6 @@ $(<mtlsqm.yaml_template)
 EOF
 " > mtlsqm.yaml
 
-echo "entrei..."
-cat mtlsqm.yaml
-
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 
 /tmp/kubectl apply -f mtlsqm.yaml
