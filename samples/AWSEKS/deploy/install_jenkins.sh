@@ -38,6 +38,7 @@ eval "cat <<EOF
 $(<mtlsqm.yaml_template)
 EOF
 " > mtlsqm.yaml
+echo mtlsqm.yaml
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 
