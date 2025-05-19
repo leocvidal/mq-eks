@@ -54,8 +54,8 @@ metadata:
     productMetric: "FREE"
 route:
   nodePort:
-    webconsole: true
-    mqtraffic: true
+    webconsole: false
+    mqtraffic: false
   loadBalancer:
     webconsole: true
     mqtraffic: true
