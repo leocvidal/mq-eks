@@ -20,6 +20,8 @@ export MQSSLKEYR="${DIR}/../../genericresources/createcerts/application"
 
 export PORT="1414"
 export IPADDRESS="$(kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
+#export IPADDRESS="13.218.21.114"
+#export PORT="32614"
 
 ( echo "cat <<EOF" ; cat ccdt_template.json ; echo EOF ) | sh > ccdt_generated.json
 
