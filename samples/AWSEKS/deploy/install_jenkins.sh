@@ -40,7 +40,7 @@ EOF
 " > mtlsqm.yaml
 
 echo ("MQ conf is:") 
-mtlsqm.yaml
+cat mtlsqm.yaml
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 
