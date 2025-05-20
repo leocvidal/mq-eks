@@ -22,6 +22,7 @@ image:
   tag: 9.4.2.1-r1
   # pullSecret is the secret to use when pulling the image from a private registry
   pullSecret:
+    - name: ibm-entitlement-key
   # pullPolicy is either IfNotPresent or Always (https://kubernetes.io/docs/concepts/containers/images/)
   pullPolicy: IfNotPresent
 
