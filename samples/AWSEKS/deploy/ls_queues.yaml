@@ -23,4 +23,4 @@ spec:
       volumes:
       - name: qm-volume
         persistentVolumeClaim:
-          claimName: qm-secureapphelm-ibm-mq-0
+          claimName: initc-pvc
