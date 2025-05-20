@@ -39,6 +39,12 @@ $(<mtlsqm.yaml_template)
 EOF
 " > mtlsqm.yaml
 
+/tmp/kubectl create secret docker-registry ibm-entitlement-key \
+  --docker-server=icr.io \
+  --docker-username=cp \
+  --docker-password=${6} \
+  --docker-email=leo.vidal@au1.ibm.com 
+
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 
 /tmp/kubectl apply -f mtlsqm.yaml
