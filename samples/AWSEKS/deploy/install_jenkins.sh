@@ -43,7 +43,8 @@ EOF
   --docker-server=icr.io \
   --docker-username=cp \
   --docker-password=${6} \
-  --docker-email=leo.vidal@au1.ibm.com 
+  --docker-email=leo.vidal@au1.ibm.com \
+  -n $TARGET_NAMESPACE
 
 /tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 
