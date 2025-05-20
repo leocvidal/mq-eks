@@ -19,8 +19,7 @@ export MQCCDTURL="${DIR}/ccdt_generated.json"
 export MQSSLKEYR="${DIR}/../../genericresources/createcerts/application"
 
 export PORT="1414"
-#export IPADDRESS="$(kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
-export IPADDRESS="ad83d34ce06f24c418de0221d000dc29-1891849897.us-east-1.elb.amazonaws.com"
+export IPADDRESS="$(kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
 
 ( echo "cat <<EOF" ; cat ccdt_template.json ; echo EOF ) | sh > ccdt_generated.json
 
