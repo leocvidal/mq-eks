@@ -59,3 +59,9 @@ route:
   loadBalancer:
     webconsole: true
     mqtraffic: true
+spec:
+  queueManager:
+    mqRest:
+      enabled: true
+  web:
+    enabled: true

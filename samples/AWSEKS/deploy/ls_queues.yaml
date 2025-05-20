@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: add-queues
+  namespace: ibm-mq-ns
+spec:
+  template:
+    spec:
+      containers:
+      - name: mq-admin
+        image: icr.io/ibm-messaging/mq:9.3.2.0-r1
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            ls -ali /var/mqm/qmgrs
+        env:
+        - name: LICENSE
+          value: accept
+        volumeMounts:
+        - name: qm-volume
+          mountPath: /var/mqm/qmgrs
+      restartPolicy: Never
+      volumes:
+      - name: qm-volume
+        persistentVolumeClaim:
+          claimName: qm-secureapphelm-ibm-mq-0
