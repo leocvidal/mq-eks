@@ -65,3 +65,11 @@ spec:
       enabled: true
   web:
     enabled: true
+
+mq:
+  qmgr:
+    name: secureapphelm
+    dev:
+      adminRest: true
+      # Enable default SVRCONN channel and permissive auth for dev
+      enabled: true
