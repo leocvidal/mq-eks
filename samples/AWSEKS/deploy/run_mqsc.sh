@@ -18,7 +18,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   escaped_command="$line"
 
 
-  payload=$(jq -n --arg cmd "$escaped_command" '{
+  payload=$(/tmp/jq -n --arg cmd "$escaped_command" '{
     type: "runCommand",
     parameters: {
       command: $cmd
@@ -34,14 +34,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     --data "$payload")
 
   # Show response
-  echo "$response" | jq .
+  echo "$response" | /tmp/jq .
 
   # Check if command failed
-  completionCode=$(echo "$response" | jq -r '.commandResponse[0].completionCode // empty')
+  completionCode=$(echo "$response" | /tmp/jq -r '.commandResponse[0].completionCode // empty')
 
   if [[ "$completionCode" != "0" && -n "$completionCode" ]]; then
     echo "❌ ERROR: Command failed: $escaped_command" >> "$ERROR_LOG"
-    echo "$response" | jq . >> "$ERROR_LOG"
+    echo "$response" | /tmp/jq . >> "$ERROR_LOG"
     echo "❗ Logged to $ERROR_LOG"
   else
     echo "✅ Success"

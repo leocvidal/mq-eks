@@ -30,6 +30,21 @@ pipeline {
             }
         }
 
+        stage('Install jq') {
+            steps {
+                echo 'Donwload kubectl '
+                sh '''
+                JQ_BIN="/tmp/jq"
+                if ! command -v jq &> /dev/null; then
+                echo "Downloading jq..."
+                curl -L -o $JQ_BIN https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+                chmod +x $JQ_BIN
+                fi
+               
+                '''
+            }
+        }
+
         stage('Install Helm') {
             steps {
                 echo 'Install helm '
