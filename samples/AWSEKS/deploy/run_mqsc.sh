@@ -7,7 +7,7 @@ LB="${3}"
 MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="mqsc_errors.log"
 
-for i in {1..30}; do
+for i in {1..60}; do
   response=$(curl -s -k -u "$MQ_USER:$MQ_PASS" \
     -H "ibm-mq-rest-csrf-token: csrf-token" \
     "https://${LB}:9443/ibmmq/rest/v2/admin/qmgr")
