@@ -8,11 +8,11 @@
                 "connection":
                 [
                     {
-                        "host": "a53780bc4c0454a8696d1c935e4de994-1221986260.us-east-1.elb.amazonaws.com",
+                        "host": "a8e224e5143084851a6521ab8d66aa8c-1294170781.us-east-1.elb.amazonaws.com",
                         "port": 1414
                     }
                 ],
-                "queueManager": "secureapphelm"
+                "queueManager": "qm1"
             },
             "transmissionSecurity":
             {

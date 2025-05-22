@@ -14,16 +14,17 @@
 # limitations under the License.
 
 export TARGET_NAMESPACE=${1:-"default"}
+export QM=${2:-"secureapphelm"}
 
-helm delete secureapphelm -n $TARGET_NAMESPACE
+helm delete $QM -n $TARGET_NAMESPACE
 kubectl delete secret helmsecure -n $TARGET_NAMESPACE
 kubectl delete configmap helmsecure -n $TARGET_NAMESPACE
-kubectl delete pvc data-secureapphelm-ibm-mq-0 -n $TARGET_NAMESPACE
-kubectl delete pvc data-secureapphelm-ibm-mq-1 -n $TARGET_NAMESPACE
-kubectl delete pvc data-secureapphelm-ibm-mq-2 -n $TARGET_NAMESPACE
-kubectl delete pvc log-secureapphelm-ibm-mq-0 -n $TARGET_NAMESPACE
-kubectl delete pvc log-secureapphelm-ibm-mq-1 -n $TARGET_NAMESPACE
-kubectl delete pvc log-secureapphelm-ibm-mq-2 -n $TARGET_NAMESPACE
-kubectl delete pvc qm-secureapphelm-ibm-mq-0 -n $TARGET_NAMESPACE
-kubectl delete pvc qm-secureapphelm-ibm-mq-1 -n $TARGET_NAMESPACE
-kubectl delete pvc qm-secureapphelm-ibm-mq-2 -n $TARGET_NAMESPACE
+kubectl delete pvc data-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
+kubectl delete pvc data-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
+kubectl delete pvc data-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
+kubectl delete pvc log-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
+kubectl delete pvc log-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
+kubectl delete pvc log-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
+kubectl delete pvc qm-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
+kubectl delete pvc qm-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
+kubectl delete pvc qm-$QM-ibm-mq-2 -n $TARGET_NAMESPACE

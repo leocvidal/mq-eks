@@ -12,7 +12,7 @@
                         "port": $PORT
                     }
                 ],
-                "queueManager": "secureapphelm"
+                "queueManager": "$QM"
             },
             "transmissionSecurity":
             {

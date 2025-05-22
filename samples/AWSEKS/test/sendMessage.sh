@@ -15,13 +15,16 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 export TARGET_NAMESPACE=${1:-"default"}
+export QM=${2:-"secureapphelm"}
 export MQCCDTURL="${DIR}/ccdt_generated.json"
 export MQSSLKEYR="${DIR}/../../genericresources/createcerts/application"
 
-export PORT="1414"
-export IPADDRESS="$(kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
+export PORT=1414
 
+#export IPADDRESS="$(kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
+export IPADDRESS=$(kubectl get services $QM-ibm-mq-loadbalancer -n qm1 -o jsonpath="{..hostname}")
 ( echo "cat <<EOF" ; cat ccdt_template.json ; echo EOF ) | sh > ccdt_generated.json
 
-echo "Starting amqsphac" secureapphelm
-/opt/mqm/samp/bin/amqsphac APPQ secureapphelm
+echo "Starting amqsphac" $QM
+#/opt/mqm/samp/bin/amqsphac APPQ secureapphelm
+/opt/mqm/samp/bin/amqsphac APPQ $QM
