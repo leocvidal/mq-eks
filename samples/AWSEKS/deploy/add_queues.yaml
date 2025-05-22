@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: initc-pvc
+  namespace: ibm-mq-ns
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: gp2
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -6,22 +19,27 @@ metadata:
 spec:
   template:
     spec:
+      securityContext:
+        fsGroup: 1001   # 👈 This enables MQM user access to mounted PVCs
       containers:
       - name: mq-admin
-        image: icr.io/ibm-messaging/mq:9.3.2.0-r1
+        image: icr.io/ibm-messaging/mq:9.4.2.0-r1
         command: ["/bin/bash", "-c"]
-        args:
+        args: # 👈 This is creating a QM in a remote QM MTLSQMCHL/TCP/secureapphelm-ibm-mq.ibm-mq-ns.svc.cluster.local(1414)
           - |
-            ls -ali
-            echo "DEFINE QLOCAL('NEW.QUEUE.1')" | runmqsc secureapphelm
+            crtmqm TEST
+            /opt/mqm/bin/dspmq 
+            echo "DEFINE QLOCAL('APPQ') DEFPSIST(YES)" | runmqsc -c SECUREAPP
         env:
         - name: LICENSE
           value: accept
+        - name: MQSERVER
+          value: "MTLSQMCHL/TCP/secureapphelm-ibm-mq.ibm-mq-ns.svc.cluster.local(1414)"  
         volumeMounts:
         - name: qm-volume
-          mountPath: /mnt/mqm
+          mountPath: /var/mqm/qmgrs
       restartPolicy: Never
       volumes:
       - name: qm-volume
         persistentVolumeClaim:
-          claimName: qm-secureapphelm-ibm-mq-0
+          claimName: initc-pvc

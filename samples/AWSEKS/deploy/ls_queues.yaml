@@ -19,14 +19,16 @@ metadata:
 spec:
   template:
     spec:
+      securityContext:
+        fsGroup: 1001   # 👈 This enables MQM user access to mounted PVCs
       containers:
       - name: mq-admin
         image: icr.io/ibm-messaging/mq:9.3.2.0-r1
         command: ["/bin/bash", "-c"]
         args:
           - |
-            pwd
-            ls -ali /var/mqm/qmgrs
+            crtmqm TEST
+            /opt/mqm/bin/dspmq
         env:
         - name: LICENSE
           value: accept
