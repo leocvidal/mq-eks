@@ -1,9 +1,10 @@
 pipeline {
     agent any
     environment {
-        IBM_ENTITLEMENT_KEY   = credentials('ibm_entitlement_key')
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        IBM_ENTITLEMENT_KEY     = credentials('ibm_entitlement_key')
+        AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
+        MQ_ADMIN_PASSWORD_VALUE = credentials('MQ_ADMIN_PASSWORD_VALUE')
         RELEASE_NAME          = "qm1"        
         NAMESPACE             = "ibm-mq-ns"
         STORAGE_CLASS         = "ocs-storagecluster-ceph-rbd"
@@ -68,7 +69,14 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${RELEASE_NAME} ${AVAILABILITY} ${VERSION} ${QMGR_NAME} ${IBM_ENTITLEMENT_KEY}')
+                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${MQ_ADMIN_PASSWORD_VALUE} ${AVAILABILITY} ${VERSION} ${QMGR_NAME} ${IBM_ENTITLEMENT_KEY}')
+        
+            }
+        }
+        stage('Post Deploy') {
+            steps {
+                echo 'Apply mqsc config'
+                sh('./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE}')
         
             }
         }
