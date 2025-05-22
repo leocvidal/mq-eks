@@ -21,12 +21,9 @@ if [ $# -gt 2 ]
     MQ_ADMIN_PASSWORD_VALUE="--set queueManager.envVariables[0].value=${2}"
     MQ_APP_PASSWORD_NAME="--set queueManager.envVariables[1].name=MQ_APP_PASSWORD"
     MQ_APP_PASSWORD_VALUE="--set queueManager.envVariables[1].value=${3}"
-    RELEASE_NAME={$7}
+    RELEASE_NAME=${7}
 fi
 
-echo "Soething..." 
-echo $RELEASE_NAME
-echo $MQ_ADMIN_PASSWORD_VALUE
 
 cd samples/AWSEKS/deploy
 
