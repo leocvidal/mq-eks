@@ -16,7 +16,7 @@ for i in {1..30}; do
     -H "ibm-mq-rest-csrf-token: csrf-token" \
     "https://${LB}:9443/ibmmq/rest/v2/admin/qmgr")
 
-  if echo "$response" | grep -q '"qmgrName"'; then
+  if echo "$response" | grep -q '"qmgr"'; then
     echo "✅ Queue manager is up and listening."
     break
   else
@@ -25,7 +25,7 @@ for i in {1..30}; do
   fi
 done
 
-if ! echo "$response" | grep -q '"qmgrName"'; then
+if ! echo "$response" | grep -q '"qmgr"'; then
   echo "❌ Queue manager did not become ready after waiting."
   exit 1
 fi
