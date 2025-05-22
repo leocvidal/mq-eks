@@ -18,7 +18,7 @@ for i in {1..30}; do
 
   if echo "$response" | grep -q '"qmgr"'; then
     echo "✅ Queue manager is up and listening."
-    sleep 1
+    sleep 5
     break
   else
     echo "Queue manager not ready yet..."
