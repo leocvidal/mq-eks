@@ -6,6 +6,7 @@ COMMAND_FILE="${2:-./commands.mqsc}"
 LB="${3}"
 MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="${4}"
+any_failure=0
 
 echo $MQ_URL
 MYURL="https://${LB}:9443/ibmmq/rest/v2/admin/qmgr"
@@ -66,8 +67,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     echo "❌ ERROR: Command failed: $escaped_command" >> "$ERROR_LOG"
     echo "$response" | /tmp/jq . >> "$ERROR_LOG"
     echo "❗ Logged to $ERROR_LOG"
+    any_failure=1
   else
     echo "✅ Success"
+  fi
+
+  if [[ "$any_failure" -eq 1 ]]; then
+    echo "❌ One or more MQSC commands failed. See $ERROR_LOG for details."
+    exit 1
   fi
 
   echo "-----------------------------"

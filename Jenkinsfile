@@ -105,6 +105,11 @@ pipeline {
             """
             }
         }
+        post {
+            always {
+            archiveArtifacts artifacts: 'mqsc_errors.log', onlyIfSuccessful: false
+            }
+        }
         }
     }
 }
