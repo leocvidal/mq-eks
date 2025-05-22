@@ -7,7 +7,24 @@ LB="${3}"
 MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="mqsc_errors.log"
 
-echo $MQ_URL
+for i in {1..30}; do
+  response=$(curl -s -k -u "$MQ_USER:$MQ_PASS" \
+    -H "ibm-mq-rest-csrf-token: csrf-token" \
+    "https://${LB}:9443/ibmmq/rest/v2/admin/qmgr")
+
+  if echo "$response" | grep -q '"qmgrName"'; then
+    echo "✅ Queue manager is up and listening."
+    break
+  else
+    echo "Queue manager not ready yet..."
+    sleep 5
+  fi
+done
+
+if ! echo "$response" | grep -q '"qmgrName"'; then
+  echo "❌ Queue manager did not become ready after waiting."
+  exit 1
+fi
 
 # Clear previous log
 > "$ERROR_LOG"
