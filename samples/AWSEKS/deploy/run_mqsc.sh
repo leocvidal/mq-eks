@@ -3,7 +3,8 @@
 MQ_USER="admin"
 MQ_PASS="${1}"
 COMMAND_FILE="${2:-./commands.mqsc}"
-MQ_URL="https://aab06742b96ed4cb1802e38033ee4e93-516874369.us-east-1.elb.amazonaws.com:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
+LB="${3}"
+MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="mqsc_errors.log"
 
 echo "My dir"
