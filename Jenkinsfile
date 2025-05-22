@@ -89,14 +89,22 @@ pipeline {
             }
         }
         stage('Post Deploy') {
-            steps {
-                echo 'Apply mqsc config'
-                sh '''
-                    LB=$(/tmp/kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')
-                    echo "Load balancer: $LB"
-                    ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc
-                '''
+        steps {
+            script {
+            echo 'Apply mqsc config'
+
+            sh """
+                echo '⏳ Waiting for Load Balancer to be ready...'
+                sleep 10
+                /tmp/kubectl get svc secureapphelm-ibm-mq-loadbalancer -o wide
+
+                LB=\$(/tmp/kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+                echo "✅ Load balancer: \$LB"
+
+                ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB"
+            """
             }
+        }
         }
     }
 }
