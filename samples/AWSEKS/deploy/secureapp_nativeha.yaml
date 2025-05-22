@@ -25,6 +25,10 @@ queueManager:
     - name: helmsecure
       items:
         - mq.ini
+  web:
+    enabled: true             # ✅ Enables MQ Web Console
+  mqRest:
+    enabled: true             # ✅ Enables MQ Admin REST API           
 persistence:
   qmPVC:
     enable: true
