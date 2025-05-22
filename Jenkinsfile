@@ -16,8 +16,19 @@ pipeline {
         VERSION               = "9.4.0.5-r2"
         AVAILABILITY          = "NativeHA"
         PATH = "${HOME}/.local/bin:${PATH}"
+        LOG_DIR = 'logs'
+        SCRIPT_DIR = 'scripts'
+        CONFIG_DIR = 'configs'
+        OUTPUT_DIR = 'outputs'
     }
     stages {
+        stage('Prepare Workspace') {
+            steps {
+                sh '''
+                mkdir -p $LOG_DIR $OUTPUT_DIR
+                '''
+            }
+        }
         stage('Download kubectl') {
             steps {
                 echo 'Donwload kubectl '
@@ -92,19 +103,19 @@ pipeline {
         steps {
             script {
             echo 'Apply mqsc config'
-
+            def errorLog = "${LOG_DIR}/mqsc_errors.log"
             sh """
                 echo '⏳ Waiting for Load Balancer to be ready...'
                 sleep 10
                 /tmp/kubectl get svc ${RELEASE_NAME}-ibm-mq-loadbalancer -o wide
                 LB=\$(/tmp/kubectl get service ${RELEASE_NAME}-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
-                ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB" logs/mqsc_errors.log ${RELEASE_NAME}
+                ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB" ${errorLog} ${RELEASE_NAME}
             """
             }
         }
         post {
             always {
-            archiveArtifacts artifacts: 'logs/mqsc_errors.log', onlyIfSuccessful: false
+            archiveArtifacts artifacts: "${LOG_DIR}/*.log", onlyIfSuccessful: false
             }
         }
         }
