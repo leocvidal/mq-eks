@@ -6,7 +6,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
         MQ_ADMIN_PASSWORD_VALUE = credentials('MQ_ADMIN_PASSWORD_VALUE')
         RELEASE_NAME          = "qm1"        
-        NAMESPACE             = "ibm-mq-ns"
+        NAMESPACE             = "qm1"
         STORAGE_CLASS         = "ocs-storagecluster-ceph-rbd"
         QMGR_NAME             = "QM1"
         CHANNEL_NAME          = "QM1CHL"
@@ -84,7 +84,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${MQ_ADMIN_PASSWORD_VALUE} ${AVAILABILITY} ${VERSION} ${QMGR_NAME} ${IBM_ENTITLEMENT_KEY}')
+                sh('./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${MQ_ADMIN_PASSWORD_VALUE} ${AVAILABILITY} ${VERSION} ${QMGR_NAME} ${IBM_ENTITLEMENT_KEY} ${RELEASE_NAME}')
         
             }
         }

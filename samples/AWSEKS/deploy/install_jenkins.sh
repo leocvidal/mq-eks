@@ -21,11 +21,10 @@ if [ $# -gt 2 ]
     MQ_ADMIN_PASSWORD_VALUE="--set queueManager.envVariables[0].value=${2}"
     MQ_APP_PASSWORD_NAME="--set queueManager.envVariables[1].name=MQ_APP_PASSWORD"
     MQ_APP_PASSWORD_VALUE="--set queueManager.envVariables[1].value=${3}"
+    RELEASE_NAME={$7}
 fi
-if [ $# -eq 4 ]
-  then
-    LB_ANNOTATION="--set-string route.loadBalancer.annotations.service\.beta\.kubernetes\.io/aws-load-balancer-internal=${4}"
-fi
+
+
 
 cd samples/AWSEKS/deploy
 
@@ -50,4 +49,5 @@ EOF
 
 /tmp/kubectl apply -f mtlsqm.yaml
 
-/tmp/helm install secureapphelm ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
+#/tmp/helm install secureapphelm ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
+/tmp/helm install $RELEASE_NAME ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
