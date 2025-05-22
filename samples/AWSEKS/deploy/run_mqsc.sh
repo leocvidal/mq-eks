@@ -64,6 +64,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 
   if [[ "$completionCode" != "0" && -n "$completionCode" ]]; then
     echo "❌ ERROR: Command failed: $escaped_command" >> "$ERROR_LOG"
+    echo "Escaped command was $escaped_command"
     echo "$response" | /tmp/jq . >> "$ERROR_LOG"
     echo "❗ Logged to $ERROR_LOG"
     any_failure=1
