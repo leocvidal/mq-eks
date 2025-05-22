@@ -1,0 +1,42 @@
+❌ ERROR: Command failed: DEFINE QLOCAL(Q1) MAXDEPTH(5000)
+{
+  "commandResponse": [
+    {
+      "completionCode": 2,
+      "reasonCode": 4001,
+      "text": [
+        "AMQ8150E: IBM MQ object already exists."
+      ]
+    }
+  ],
+  "overallReasonCode": 3008,
+  "overallCompletionCode": 2
+}
+❌ ERROR: Command failed: DEFINE QLOCAL(Q2) MAXDEPTH(10000)
+{
+  "commandResponse": [
+    {
+      "completionCode": 2,
+      "reasonCode": 4001,
+      "text": [
+        "AMQ8150E: IBM MQ object already exists."
+      ]
+    }
+  ],
+  "overallReasonCode": 3008,
+  "overallCompletionCode": 2
+}
+❌ ERROR: Command failed: DEFINE QLOCAL(Q4) MAXDEPTH(5000)
+{
+  "commandResponse": [
+    {
+      "completionCode": 2,
+      "reasonCode": 4001,
+      "text": [
+        "AMQ8150E: IBM MQ object already exists."
+      ]
+    }
+  ],
+  "overallReasonCode": 3008,
+  "overallCompletionCode": 2
+}

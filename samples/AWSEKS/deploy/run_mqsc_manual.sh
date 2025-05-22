@@ -3,13 +3,12 @@
 MQ_USER="admin"
 MQ_PASS="${1}"
 COMMAND_FILE="${2:-./commands.mqsc}"
-LB="${3}"
+#LB="${3}"
+LB="$(kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
 MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
-ERROR_LOG="${4}"
+ERROR_LOG="mqsc_errors.log"
 any_failure=0
 
-MYURL="https://${LB}:9443/ibmmq/rest/v2/admin/qmgr"
-echo $MYURL
 
 for i in {1..30}; do
   response=$(curl -s -k -u "$MQ_USER:$MQ_PASS" \
@@ -39,7 +38,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   escaped_command="$line"
 
 
-  payload=$(/tmp/jq -n --arg cmd "$escaped_command" '{
+  payload=$(jq -n --arg cmd "$escaped_command" '{
     type: "runCommand",
     parameters: {
       command: $cmd
@@ -57,19 +56,20 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     #--data "$payload")
 
   # Show response
-  echo "$response" | /tmp/jq .
+  echo "$response" | jq .
 
   # Check if command failed
-  completionCode=$(echo "$response" | /tmp/jq -r '.commandResponse[0].completionCode // empty')
+  completionCode=$(echo "$response" | jq -r '.commandResponse[0].completionCode // empty')
 
   if [[ "$completionCode" != "0" && -n "$completionCode" ]]; then
     echo "❌ ERROR: Command failed: $escaped_command" >> "$ERROR_LOG"
-    echo "$response" | /tmp/jq . >> "$ERROR_LOG"
+    echo "$response" | jq . >> "$ERROR_LOG"
     echo "❗ Logged to $ERROR_LOG"
     any_failure=1
   else
     echo "✅ Success"
   fi
+
 
   echo "-----------------------------"
 
