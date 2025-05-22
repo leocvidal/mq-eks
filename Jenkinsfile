@@ -5,7 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
         MQ_ADMIN_PASSWORD_VALUE = credentials('MQ_ADMIN_PASSWORD_VALUE')
-        RELEASE_NAME          = "qm1"        
+        RELEASE_NAME          = "queuemanager1"        
         NAMESPACE             = "qm1"
         STORAGE_CLASS         = "ocs-storagecluster-ceph-rbd"
         QMGR_NAME             = "QM1"
