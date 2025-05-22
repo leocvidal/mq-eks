@@ -98,7 +98,7 @@ pipeline {
                 sleep 10
                 /tmp/kubectl get svc ${RELEASE_NAME}-ibm-mq-loadbalancer -o wide
                 LB=\$(/tmp/kubectl get service ${RELEASE_NAME}-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
-                ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB" samples/AWSEKS/deploy/mqsc_errors.log
+                ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB" samples/AWSEKS/deploy/mqsc_errors.log ${RELEASE_NAME}
             """
             }
         }

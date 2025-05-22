@@ -4,8 +4,10 @@ MQ_USER="admin"
 MQ_PASS="${1}"
 COMMAND_FILE="${2:-./commands.mqsc}"
 LB="${3}"
-MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="${4}"
+QM="${5}"
+MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/${QM}/mqsc"
+
 any_failure=0
 
 
