@@ -5,7 +5,7 @@ MQ_PASS="${1}"
 COMMAND_FILE="${2:-./commands.mqsc}"
 LB="${3}"
 MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
-ERROR_LOG="mqsc_errors.log"
+ERROR_LOG="${4}"
 
 echo $MQ_URL
 MYURL="https://${LB}:9443/ibmmq/rest/v2/admin/qmgr"
@@ -18,6 +18,7 @@ for i in {1..30}; do
 
   if echo "$response" | grep -q '"qmgr"'; then
     echo "✅ Queue manager is up and listening."
+    sleep 1
     break
   else
     echo "Queue manager not ready yet..."
