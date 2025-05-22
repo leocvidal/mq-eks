@@ -43,6 +43,6 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   fi
 
   echo "-----------------------------"
-done < commands.mqsc
+done < ./commands.mqsc
 
 
