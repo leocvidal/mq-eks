@@ -26,6 +26,7 @@ fi
 
 echo "Soething..." 
 echo $RELEASE_NAME
+echo $MQ_ADMIN_PASSWORD_VALUE
 
 cd samples/AWSEKS/deploy
 
