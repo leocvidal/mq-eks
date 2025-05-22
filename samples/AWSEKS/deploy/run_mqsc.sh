@@ -7,9 +7,7 @@ LB="${3}"
 MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="mqsc_errors.log"
 
-echo "My dir"
-pwd
-
+echo $MQ_URL
 
 # Clear previous log
 > "$ERROR_LOG"
