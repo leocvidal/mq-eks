@@ -5,7 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
         MQ_ADMIN_PASSWORD_VALUE = credentials('MQ_ADMIN_PASSWORD_VALUE')
-        RELEASE_NAME          = "queuemanager1"        
+        RELEASE_NAME          = "qm1"        
         NAMESPACE             = "qm1"
         STORAGE_CLASS         = "ocs-storagecluster-ceph-rbd"
         QMGR_NAME             = "QM1"
@@ -97,10 +97,7 @@ pipeline {
                 echo '⏳ Waiting for Load Balancer to be ready...'
                 sleep 10
                 /tmp/kubectl get svc secureapphelm-ibm-mq-loadbalancer -o wide
-
                 LB=\$(/tmp/kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
-                
-
                 ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB" samples/AWSEKS/deploy/mqsc_errors.log
             """
             }

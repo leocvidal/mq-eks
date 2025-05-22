@@ -24,6 +24,7 @@ if [ $# -gt 2 ]
     RELEASE_NAME={$7}
 fi
 
+echo "Soething..." 
 echo $RELEASE_NAME
 
 cd samples/AWSEKS/deploy
