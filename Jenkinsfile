@@ -76,10 +76,11 @@ pipeline {
         stage('Post Deploy') {
             steps {
                 echo 'Apply mqsc config'
-                export LB="$(/tmp/kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')"
-                echo $LB
-                sh('./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE}')
-        
+                sh '''
+                    LB=$(/tmp/kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath='{..hostname}')
+                    echo "Load balancer: $LB"
+                    ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE}
+                '''
             }
         }
     }
