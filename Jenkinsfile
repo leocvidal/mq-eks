@@ -95,9 +95,11 @@ pipeline {
 
             sh """
                 echo '⏳ Waiting for Load Balancer to be ready...'
+             
 
                 LB=\$(/tmp/kubectl get service secureapphelm-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
-     
+                echo "✅ Load balancer: \$LB"
+
                 ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB"
             """
             }
