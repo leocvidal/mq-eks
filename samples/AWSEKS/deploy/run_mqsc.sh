@@ -51,9 +51,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     -H "Content-Type: application/json" \
     -H "ibm-mq-rest-csrf-token: csrf-token" \
     -X POST "$MQ_URL" \
-    #--data "$payload")
     --data-raw "$payload")
 
+    #--data "$payload")
 
   # Show response
   echo "$response" | /tmp/jq .
