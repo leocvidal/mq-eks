@@ -10,6 +10,11 @@ MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/${QM}/mqsc"
 
 any_failure=0
 
+if [[ -z "$ERROR_LOG" ]]; then
+  echo "❌ ERROR_LOG variable not set"
+  exit 1
+fi
+
 
 for i in {1..30}; do
   response=$(curl -s -k -u "$MQ_USER:$MQ_PASS" \
