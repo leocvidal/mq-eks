@@ -8,7 +8,7 @@ MQ_URL="https://${LB}:9443/ibmmq/rest/v2/admin/action/qmgr/secureapphelm/mqsc"
 ERROR_LOG="mqsc_errors.log"
 
 echo $MQ_URL
-MYURL="https://${LB}:9443/ibmmq/rest/v2/admin/qmgr")
+MYURL="https://${LB}:9443/ibmmq/rest/v2/admin/qmgr"
 echo $MYURL
 
 for i in {1..30}; do
