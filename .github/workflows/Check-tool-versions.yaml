@@ -18,7 +18,7 @@ jobs:
       USE: NonProduction
       VERSION: 9.4.0.5-r2
       AVAILABILITY: NativeHA
-      PATH: ${{ github.workspace }}/.local/bin:${{ env.PATH }}
+      #PATH: ${{ github.workspace }}/.local/bin:${{ env.PATH }}
       LOG_DIR: logs
       SCRIPT_DIR: scripts
       CONFIG_DIR: configs
