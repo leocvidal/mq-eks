@@ -32,6 +32,9 @@ jobs:
       run: |
         mkdir -p $LOG_DIR $OUTPUT_DIR
 
+    - name: Set PATH for this job
+      run: echo "PATH=${{ github.workspace }}/.local/bin:$PATH" >> $GITHUB_ENV
+      
     - name: Cleanup
       run: |
         echo "Cleaning up"
