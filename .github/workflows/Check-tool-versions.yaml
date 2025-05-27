@@ -38,24 +38,12 @@ jobs:
       run: echo "PATH=${{ github.workspace }}/.local/bin:$PATH" >> $GITHUB_ENV
 
     - name: Configure AWS CLI
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        echo "AWS_ACCESS_KEY_ID is: $AWS_ACCESS_KEY_ID"
-        echo "AWS_SECRET_ACCESS_KEY is: ${AWS_SECRET_ACCESS_KEY:0:4}****"
-        aws sts get-caller-identity
         export PATH=$HOME/.local/bin:$PATH
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
     
     - name: Configure PATH for AWS CLI
       run: echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
-
-    - name: Verify kubectl access
-      run: |
-        aws sts get-caller-identity
-        kubectl get nodes
-        kubectl get pods --all-namespaces
 
     - name: Cleanup
       run: |
