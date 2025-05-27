@@ -20,7 +20,6 @@ jobs:
       USE: NonProduction
       VERSION: 9.4.0.5-r2
       AVAILABILITY: NativeHA
-      #PATH: ${{ github.workspace }}/.local/bin:${{ env.PATH }}
       LOG_DIR: logs
       SCRIPT_DIR: scripts
       CONFIG_DIR: configs
@@ -42,8 +41,7 @@ jobs:
         export PATH=$HOME/.local/bin:$PATH
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
     
-    - name: Configure PATH for AWS CLI
-      run: echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+
 
     - name: Cleanup
       continue-on-error: true
