@@ -41,15 +41,11 @@ jobs:
         export PATH=$HOME/.local/bin:$PATH
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
     
-
-
     - name: Cleanup
       continue-on-error: true
       run: |
         echo "Cleaning up"
         ./samples/AWSEKS/deploy/cleanup_helm.sh ${NAMESPACE} ${RELEASE_NAME}
-    - name: Pre-Deploy Placeholder
-      run: echo '⏳ Pre-Deploy:Setup configuration before deployment...'
 
     - name: Deploy Queue Manager
       env:
