@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'dev'
+      version:
+        description: 'Version number'
+        required: false
+
+- name: Check tool versions
+  run: |
+    kubectl version --client || echo "kubectl not found"
+    helm version || echo "helm not found"
+    aws --version || echo "awscli not found"
+    jq --version || echo "jq not found"
