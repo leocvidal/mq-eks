@@ -46,6 +46,7 @@ jobs:
       run: echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
 
     - name: Cleanup
+      continue-on-error: true
       run: |
         echo "Cleaning up"
         ./samples/AWSEKS/deploy/cleanup_helm.sh ${NAMESPACE} ${RELEASE_NAME}
