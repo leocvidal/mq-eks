@@ -37,16 +37,16 @@ $(<mtlsqm.yaml_template)
 EOF
 " > mtlsqm.yaml
 
-/tmp/kubectl create secret docker-registry ibm-entitlement-key \
+kubectl create secret docker-registry ibm-entitlement-key \
   --docker-server=icr.io \
   --docker-username=cp \
   --docker-password=${6} \
   --docker-email=leo.vidal@au1.ibm.com \
   -n $TARGET_NAMESPACE
 
-/tmp/kubectl config set-context --current --namespace=$TARGET_NAMESPACE
+kubectl config set-context --current --namespace=$TARGET_NAMESPACE
 
-/tmp/kubectl apply -f mtlsqm.yaml
+kubectl apply -f mtlsqm.yaml
 
-#/tmp/helm install secureapphelm ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
-/tmp/helm install "${RELEASE_NAME}" ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
+#helm install secureapphelm ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION
+helm install "${RELEASE_NAME}" ../../../charts/ibm-mq -f secureapp_nativeha.yaml $MQ_ADMIN_PASSWORD_NAME $MQ_ADMIN_PASSWORD_VALUE $MQ_APP_PASSWORD_NAME $MQ_APP_PASSWORD_VALUE $LB_ANNOTATION

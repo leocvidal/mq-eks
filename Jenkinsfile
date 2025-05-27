@@ -45,7 +45,7 @@ pipeline {
                 sh '''
                 curl -LO "https://dl.k8s.io/release/v1.33.0/bin/linux/amd64/kubectl"
                 chmod +x kubectl
-                mv kubectl /tmp/kubectl
+                mv kubectl kubectl
                
                 '''
             }
@@ -55,7 +55,7 @@ pipeline {
             steps {
                 echo 'Donwload kubectl '
                 sh '''
-                JQ_BIN="/tmp/jq"
+                JQ_BIN="jq"
                 if ! command -v jq &> /dev/null; then
                 echo "Downloading jq..."
                 curl -L -o $JQ_BIN https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
@@ -73,8 +73,8 @@ pipeline {
                     HELM_VERSION="v3.14.4"
                     curl -LO https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz
                     tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
-                    mv linux-amd64/helm /tmp/helm
-                    chmod +x /tmp/helm
+                    mv linux-amd64/helm helm
+                    chmod +x helm
                 '''
             }
         }
@@ -117,8 +117,8 @@ pipeline {
             sh """
                 echo '⏳ Waiting for Load Balancer to be ready...'
                 sleep 10
-                /tmp/kubectl get svc ${RELEASE_NAME}-ibm-mq-loadbalancer -o wide
-                LB=\$(/tmp/kubectl get service ${RELEASE_NAME}-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+                kubectl get svc ${RELEASE_NAME}-ibm-mq-loadbalancer -o wide
+                LB=\$(kubectl get service ${RELEASE_NAME}-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
                 ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "\$LB" ${errorLog} ${RELEASE_NAME}
             """
             }

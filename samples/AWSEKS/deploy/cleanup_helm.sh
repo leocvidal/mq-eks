@@ -16,15 +16,15 @@
 TARGET_NAMESPACE=${1:-"default"}
 QM=${2:-"secureapphelm"}
 
-/tmp/helm delete $QM -n $TARGET_NAMESPACE
-/tmp/kubectl delete secret helmsecure -n $TARGET_NAMESPACE
-/tmp/kubectl delete configmap helmsecure -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc data-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc data-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc data-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc log-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc log-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc log-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc qm-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc qm-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
-/tmp/kubectl delete pvc qm-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
+helm delete $QM -n $TARGET_NAMESPACE
+kubectl delete secret helmsecure -n $TARGET_NAMESPACE
+kubectl delete configmap helmsecure -n $TARGET_NAMESPACE
+kubectl delete pvc data-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
+kubectl delete pvc data-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
+kubectl delete pvc data-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
+kubectl delete pvc log-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
+kubectl delete pvc log-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
+kubectl delete pvc log-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
+kubectl delete pvc qm-$QM-ibm-mq-0 -n $TARGET_NAMESPACE
+kubectl delete pvc qm-$QM-ibm-mq-1 -n $TARGET_NAMESPACE
+kubectl delete pvc qm-$QM-ibm-mq-2 -n $TARGET_NAMESPACE
