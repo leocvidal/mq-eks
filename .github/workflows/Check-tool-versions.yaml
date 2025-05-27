@@ -1,17 +1,72 @@
+name: MQ EKS Pipeline
+
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to deploy to'
-        required: true
-        default: 'dev'
-      version:
-        description: 'Version number'
-        required: false
 
-- name: Check tool versions
-  run: |
-    kubectl version --client || echo "kubectl not found"
-    helm version || echo "helm not found"
-    aws --version || echo "awscli not found"
-    jq --version || echo "jq not found"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_NAME: qm1
+      NAMESPACE: qm1
+      STORAGE_CLASS: ocs-storagecluster-ceph-rbd
+      QMGR_NAME: QM1
+      CHANNEL_NAME: QM1CHL
+      LICENSE: L-JTPV-KYG8TF
+      METRIC: VirtualProcessorCore
+      USE: NonProduction
+      VERSION: 9.4.0.5-r2
+      AVAILABILITY: NativeHA
+      PATH: ${{ github.workspace }}/.local/bin:${{ env.PATH }}
+      LOG_DIR: logs
+      SCRIPT_DIR: scripts
+      CONFIG_DIR: configs
+      OUTPUT_DIR: outputs
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Prepare Workspace
+      run: |
+        mkdir -p $LOG_DIR $OUTPUT_DIR
+
+    - name: Cleanup
+      run: |
+        echo "Cleaning up"
+        ./samples/AWSEKS/deploy/cleanup_helm.sh ${NAMESPACE} ${RELEASE_NAME}
+
+    - name: Configure AWS CLI
+      run: |
+        export PATH=$HOME/.local/bin:$PATH
+        export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+        export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
+
+    - name: Pre-Deploy Placeholder
+      run: echo "Pre-Deploy: Setup configuration before deployment"
+
+    - name: Deploy Queue Manager
+      env:
+        IBM_ENTITLEMENT_KEY: ${{ secrets.ibm_entitlement_key }}
+        MQ_ADMIN_PASSWORD_VALUE: ${{ secrets.MQ_ADMIN_PASSWORD_VALUE }}
+      run: |
+        ./samples/AWSEKS/deploy/install_jenkins.sh ${NAMESPACE} ${MQ_ADMIN_PASSWORD_VALUE} ${AVAILABILITY} ${VERSION} ${QMGR_NAME} ${IBM_ENTITLEMENT_KEY} ${RELEASE_NAME}
+
+    - name: Post-Deploy Config
+      env:
+        MQ_ADMIN_PASSWORD_VALUE: ${{ secrets.MQ_ADMIN_PASSWORD_VALUE }}
+      run: |
+        echo '⏳ Waiting for Load Balancer to be ready...'
+        sleep 10
+        /tmp/kubectl get svc ${RELEASE_NAME}-ibm-mq-loadbalancer -o wide
+        LB=$(/tmp/kubectl get service ${RELEASE_NAME}-ibm-mq-loadbalancer -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+        ./samples/AWSEKS/deploy/run_mqsc.sh ${MQ_ADMIN_PASSWORD_VALUE} samples/AWSEKS/deploy/commands.mqsc "$LB" ${LOG_DIR}/mqsc_errors.log ${RELEASE_NAME}
+
+    - name: Archive Logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: mqsc-logs
+        path: logs/*.log
