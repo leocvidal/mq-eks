@@ -73,3 +73,4 @@ jobs:
       with:
         name: mqsc-logs
         path: logs/*.log
+        if-no-files-found: warn
