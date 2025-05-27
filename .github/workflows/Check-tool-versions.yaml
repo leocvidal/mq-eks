@@ -48,7 +48,7 @@ jobs:
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
 
     - name: Pre-Deploy Placeholder
-      run: echo '⏳ Pre-Deploy:Setup configuration before deployment....'
+      run: echo '⏳ Pre-Deploy:Setup configuration before deployment...'
 
     - name: Deploy Queue Manager
       env:
@@ -69,7 +69,7 @@ jobs:
 
     - name: Archive Logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@latest
       with:
         name: mqsc-logs
         path: logs/*.log
