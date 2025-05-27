@@ -42,11 +42,15 @@ jobs:
       run: |
         echo "AWS_ACCESS_KEY_ID is: $AWS_ACCESS_KEY_ID"
         echo "AWS_SECRET_ACCESS_KEY is: ${AWS_SECRET_ACCESS_KEY:0:4}****"
-        aws --version
         aws sts get-caller-identity
         export PATH=$HOME/.local/bin:$PATH
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
     
+    - name: Verify kubectl access
+      run: |
+        kubectl get nodes
+        kubectl get pods --all-namespaces
+
     - name: Cleanup
       run: |
         echo "Cleaning up"
