@@ -48,7 +48,7 @@ jobs:
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
 
     - name: Pre-Deploy Placeholder
-      run: echo '⏳ Pre-Deploy:Setup configuration before deployment...'
+      run: echo '⏳ Pre-Deploy:Setup configuration before deployment....'
 
     - name: Deploy Queue Manager
       env:
