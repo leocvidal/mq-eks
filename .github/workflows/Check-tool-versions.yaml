@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       RELEASE_NAME: qm1
       NAMESPACE: qm1
       STORAGE_CLASS: ocs-storagecluster-ceph-rbd
