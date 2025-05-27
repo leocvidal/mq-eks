@@ -33,10 +33,11 @@ pipeline {
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up '
+                sh '''
                 sh('./samples/AWSEKS/deploy/cleanup_helm.sh ${NAMESPACE} ${RELEASE_NAME}')
                 '''
             }
-        } 
+        }
 
         stage('Download kubectl') {
             steps {
