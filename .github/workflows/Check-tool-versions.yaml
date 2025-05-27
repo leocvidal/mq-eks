@@ -46,8 +46,12 @@ jobs:
         export PATH=$HOME/.local/bin:$PATH
         aws eks update-kubeconfig --region us-east-1 --name itzeks-694000l4zn-go9v59qq
     
+    - name: Configure PATH for AWS CLI
+      run: echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+
     - name: Verify kubectl access
       run: |
+        aws sts get-caller-identity
         kubectl get nodes
         kubectl get pods --all-namespaces
 
