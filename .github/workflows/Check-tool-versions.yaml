@@ -69,7 +69,7 @@ jobs:
 
     - name: Archive Logs
       if: always()
-      uses: actions/upload-artifact@latest
+      uses: actions/upload-artifact@v3
       with:
         name: mqsc-logs
         path: logs/*.log
